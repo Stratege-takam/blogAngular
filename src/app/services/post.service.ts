@@ -11,8 +11,8 @@ export class PostService {
 
   postSubject = new Subject<PostModel[]>();
 
-  private url  = "'https://http-client-demon.firebaseio.com/post.json";
-  private posts: PostModel[] = [];
+  private url  = "https://http-client-demon.firebaseio.com/post.json";
+  private posts: PostModel[] =[];
 
   private initPost = [
     new PostModel("Mon premier post",
@@ -42,7 +42,7 @@ export class PostService {
 
 
   constructor(private httpClient: HttpClient) {
-    this.createPost();
+    this.findAllPost();
   }
 
   findPostById(id: number) {
@@ -91,6 +91,7 @@ export class PostService {
   findAllPost() {
     this.httpClient.get<PostModel[]>(this.url).subscribe(
       (Listposts) => {
+        //console.log(Listposts);
         this.posts = Listposts ;
         if (!this.posts || this.posts.length ==0) this.posts = this.initPost;
         this.emitPost();

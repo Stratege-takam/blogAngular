@@ -34,12 +34,12 @@ export class PostListItemComponent implements OnInit {
 
 
   onAddLoveIts(post: PostModel){
-    post.addLoveIts();
+    post.loveIts ++;
     this.postService.editPost(post);
   }
 
   onRemoveLoveIts(post: PostModel){
-    post.removeLoveIts();
+    post.loveIts --;
     this.postService.editPost(post);
   }
 
