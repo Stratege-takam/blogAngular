@@ -1,41 +1,37 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input, OnDestroy} from '@angular/core';
 // importer la class post
-import { Post } from '../model/post';
+import { PostModel } from '../models/post.model';
+import {PostService} from "../services/post.service";
+import {Subscription} from "rxjs/index";
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, OnDestroy {
 
-  // initialisation du  tableau des posts 
-  posts =[
-     new Post("Mon premier post", 
-     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.  Eaque veritatis adipisci, non tempore alias rerum, perferendis ",
-     0,new Date()),
-     new Post("Mon deuxième post", 
-     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.  Eaque veritatis adipisci, non tempore alias rerum, perferendis ",
-     0,new Date()),
-     new Post("Mon troisième post", 
-     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.  Eaque veritatis adipisci, non tempore alias rerum, perferendis ",
-     0,new Date()),
-     new Post("Mon quatrième post", 
-     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.  Eaque veritatis adipisci, non tempore alias rerum, perferendis ",
-     0,new Date()),
-     new Post("Mon cinquième post", 
-     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.  Eaque veritatis adipisci, non tempore alias rerum, perferendis ",
-     0,new Date()),
-     new Post("Encore un post", 
-     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.  Eaque veritatis adipisci, non tempore alias rerum, perferendis ",
-     0,new Date())
-  ];
+  // initialisation du  tableau des posts
+  posts = [];
 
-  constructor() { }
+  postSubscription = new Subscription();
+
+  constructor(private postService: PostService) { }
+
 
   ngOnInit() {
+    this.postSubscription = this.postService.postSubject.subscribe(
+      (listPosts: PostModel[]) => {
+        this.posts = listPosts;
+      }
+    );
+    this.postService.emitPost();
   }
 
-  
+  ngOnDestroy(): void {
+    this.postSubscription.unsubscribe();
+  }
+
+
 }
 

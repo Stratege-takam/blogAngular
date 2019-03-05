@@ -2,14 +2,17 @@
       {
         'list-group-item': post.loveIts === 0,
         'list-group-item-success': post.loveIts > 0,
-        'list-group-item-danger': post.loveIts< 0, 
+        'list-group-item-danger': post.loveIts< 0,
         'mt-2':true,
         'p-2':true
       }
-    ">
+    "
+>
   <div class="d-flex align-items-center justify-content-between">
      <h4>
-       {{ post.title }}
+       <a  (click)="onfindPostById(post.id)" style="cursor: pointer;">
+         {{ post.title }}
+       </a>
      </h4>
      <div class="text-muted small">
        {{ post.created_at | date : 'short' }}
@@ -18,8 +21,12 @@
   <div class="text-muted small text-justify">
       {{ post.content }}
   </div>
-  <div class="mt-2">
-    <button (click)="post.addLoveIts()" class="btn btn-sm btn-success mr-3"> Love it ! </button>
-    <button (click)="post.removeLoveIts()" class="btn btn-sm btn-danger"> Don't love it ! </button>
+  <div class="mt-2 d-flex flex-row">
+    <div>
+      <button (click)="onAddLoveIts(post)" class="btn btn-sm btn-success mr-3"> Love it ! </button>
+      <button (click)="onRemoveLoveIts(post)" class="btn btn-sm btn-danger"> Don't love it ! </button>
+    </div>
+
+    <button (click)="onRemovePost(post.id)" class="btn btn-sm btn-danger ml-auto"> Remove </button>
   </div>
 </li>

@@ -1,8 +1,10 @@
 
 import { Component, OnInit, Input } from '@angular/core';
 //importer la class post
-import { Post } from '../model/post';
+import { PostModel } from '../models/post.model';
 import { post } from 'selenium-webdriver/http';
+import {ActivatedRoute, Router} from "@angular/router";
+import {PostService} from "../services/post.service";
 
 
 
@@ -14,10 +16,31 @@ import { post } from 'selenium-webdriver/http';
 export class PostListItemComponent implements OnInit {
 
   // creer une dépendance de propriéte  post de type post
-  @Input() post:Post;
+  @Input() post:PostModel;
 
-  constructor() { }
+  constructor(private router: Router, private postService: PostService) { }
 
   ngOnInit() {
   }
+
+  onfindPostById(id: number){
+     this.router.navigate(["/posts", id]);
+  }
+
+  onRemovePost(id: number){
+    this.postService.removePost(id);
+  }
+
+
+
+  onAddLoveIts(post: PostModel){
+    post.addLoveIts();
+    this.postService.editPost(post);
+  }
+
+  onRemoveLoveIts(post: PostModel){
+    post.removeLoveIts();
+    this.postService.editPost(post);
+  }
+
 }
