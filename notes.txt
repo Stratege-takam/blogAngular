@@ -1,0 +1,4 @@
+Pour utiliser firebase, j'ai preferé httpclient au lieu d'importer les bibliotheques
+pour l'importation des service dans AppModule,  ce sont les anciens méthodes on peux directement importer en injectant le service
+Pour finir les données sont enregistrés sur le serveur donc si vous voulez supprimé tous ses données et ajouter d'autres ce sont vos modifications
+qui  y  resteront
