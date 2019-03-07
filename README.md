@@ -2,6 +2,15 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.
 
+
+
+Pour utiliser firebase, j'ai preferé httpclient au lieu d'importer les bibliotheques
+pour l'importation des service dans AppModule,  ce sont les anciens méthodes on peux directement importer en injectant le service
+Pour finir les données sont enregistrés sur le serveur donc si vous voulez supprimé tous ses données et ajouter d'autres ce sont vos modifications
+qui  y  resteront
+
+
+
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
